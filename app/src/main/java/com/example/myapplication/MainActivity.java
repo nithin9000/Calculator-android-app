@@ -4,18 +4,13 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     double firstNum;
     String operation;
-}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
         ac.setOnClickListener(view -> {
             firstNum = 0;
             screen.setText("0");
-
-
         });
 
         off.setOnClickListener(view -> screen.setVisibility(TextView.GONE));
@@ -71,70 +64,67 @@ public class MainActivity extends AppCompatActivity {
         nums.add(num8);
         nums.add(num9);
 
-        for(Button b:nums){
+        for (Button b : nums) {
             b.setOnClickListener(view -> {
-                if(!screen.getText().toString().equals("0")){
-                    screen.setText(screen.getText().toString()+b.getText().toString());
+                if (!screen.getText().toString().equals("0")) {
+                    screen.setText(screen.getText().toString() + b.getText().toString());
                 } else {
-                screen.setText(b.getText().toString());
-            }
-        });
+                    screen.setText(b.getText().toString());
+                }
+            });
+        }
+
         ArrayList<Button> opers = new ArrayList<>();
         opers.add(div);
         opers.add(times);
         opers.add(plus);
         opers.add(min);
 
-        for(Button b: opers){
+        for (Button b : opers) {
             b.setOnClickListener(view -> {
                 firstNum = Double.parseDouble(screen.getText().toString());
                 operation = b.getText().toString();
                 screen.setText("0");
             });
         }
+
         del.setOnClickListener(view -> {
             String num = screen.getText().toString();
-            if(num.length()>1){
-                screen.setText(num.substring(0,num.length()-1));
-            }else if(num.length()==1 && !num.equals("0")){
+            if (num.length() > 1) {
+                screen.setText(num.substring(0, num.length() - 1));
+            } else if (num.length() == 1 && !num.equals("0")) {
                 screen.setText("0");
             }
         });
 
         point.setOnClickListener(view -> {
-            if(!screen.getText().toString().contains(".")){
-                screen.setText(screen.getText().toString()+".");
+            if (!screen.getText().toString().contains(".")) {
+                screen.setText(screen.getText().toString() + ".");
             }
         });
 
         equal.setOnClickListener(view -> {
             double secondNum = Double.parseDouble(screen.getText().toString());
             double result;
-            switch (operation){
+            switch (operation) {
                 case "/":
-                    result = firstNum/secondNum;
+                    result = firstNum / secondNum;
                     break;
                 case "X":
-                    result = firstNum*secondNum;
+                    result = firstNum * secondNum;
                     break;
                 case "+":
-                    result = firstNum+secondNum;
+                    result = firstNum + secondNum;
                     break;
                 case "-":
-                    result = firstNum-secondNum;
+                    result = firstNum - secondNum;
                     break;
-                case default:
-                    result = firstNum+secondNum;
+                default:
+                    result = firstNum + secondNum;
                     break;
             }
             screen.setText(String.valueOf(result));
             firstNum = result;
         });
-
-
-
-
-
-
     }
 }
